@@ -44,9 +44,9 @@ suite('Functional Tests', function () {
         })
         .end(function (err, res) {
           assert.equal(res.status, 200);
-          assert.equal(res.type, "application/json"); 
-          assert.equal(res.body.name, "Cristoforo"); 
-          assert.equal(res.body.surname, "Colombo"); 
+          assert.equal(res.type, "application/json");
+          assert.equal(res.body.name, "Cristoforo");
+          assert.equal(res.body.surname, "Colombo");
           done();
         });
     });
@@ -59,11 +59,11 @@ suite('Functional Tests', function () {
         .send({
           "surname": "da Verrazzano"
         })
-        .end(function (err, res){
-          assert.equal(res.status, 200); 
-          assert.equal(res.type, "application/json"); 
-          assert.equal(res.body.name, "Giovanni"); 
-          assert.equal(res.body.surname, "da Verrazzano"); 
+        .end(function (err, res) {
+          assert.equal(res.status, 200);
+          assert.equal(res.type, "application/json");
+          assert.equal(res.body.name, "Giovanni");
+          assert.equal(res.body.surname, "da Verrazzano");
           done()
         })
     });
@@ -73,10 +73,16 @@ suite('Functional Tests', function () {
 const Browser = require('zombie');
 const bodyParser = require('body-parser');
 
+Browser.site = 'http://0.0.0.0:3000'; //Project url
+
 suite('Functional Tests with Zombie.js', function () {
   this.timeout(5000);
 
-
+  const browser = new Browser();
+  
+  suiteSetup(function (done) {
+    return browser.visit('/', done);
+  });
 
   suite('Headless browser', function () {
     test('should have a working "site" property', function () {
